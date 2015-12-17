@@ -741,7 +741,11 @@ namespace eval ::tanzer::session {
     switch -- [llength $args] 0 {
         return $store
     } 1 {
-        return [dict get $store [lindex $args 0]]
+        set key [lindex $args 0]
+        if {[dict exists $store $key]} {
+            return [dict get $store $key]
+        }
+        return {}
     } 2 {
         dict set store [lindex $args 0] [lindex $args 1]
         return
